@@ -37,41 +37,43 @@ program.command('show')
 program.command('list')
   .description('List widgets')
   .action(function(options) {    
-    //if(program.debug) console.error(options);
-    // do_request('GET')
-    //do_request(options.name().toUpperCase())
     owfRequest(program, 'GET', 'widget', null, null, options);
   })
- .option('-i --id <guid>', 'ID of widget')
 
 program.command('update')
   .description('Update widget')
   .action(function(option) {
     if(program.debug) console.error(options);
-    do_request('PUT')
+    console.error('Sorry this command YTBD:')
+    process.exit(1)
   })
   .option('-i --id <guid>', 'ID of widget')
 
  program.command('create')
   .description('Create widget')
   .action(function(options) {
+    let data
     if(program.debug) console.error(options);
-    if (! program.qsData && ! program.rbData) {
-      console.error(`ERROR: ${options.name()} command requires --qsData or --rbData`)
+    if ( program.qsData ) {
+       data = JSON.parse(fs.readFileSync(program.qsData))
+    }
+    if (! program.rbData) {
+      console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData or --rbData`)
       process.exit(1);
     }
-             
-    owfRequest(program, 'POST', 'widget', testData.createWidgetData, null, options);
+    let data =          
+    owfRequest(program, 'POST', 'widget', data, null, options);
  })
   .option('-i --id <widgetGuid>', 'ID of widget' )
   .option('-g --groups <groups>', 'group', "OWF Users")
 
-program.command('delete')
+program.command('delete <widgitGuid>')
   .description('Delete widget')
   .action(function(options) {
-    owfRequest(program, 'POST', 'widget', testData.createWidgetData, null, options);
+    console.error('Sorry this command YTBD:')
+    process.exit(1);
+    owfRequest(program, 'DELETE', 'widget', data, null, options);
  })
-  .option('-i --id <guid>', 'ID of widget')
 
 
 program.command('test <cmd>')
@@ -130,12 +132,12 @@ function owfRequest(program, method, restPath, paramJson, dataJson, options, hea
       //console.log(JSON.stringify(d, null, 2)); 
       process.stdout.write(d); 
     });
-    let error
-    if ( statusCode != 200 ) {
-      error = new Error('Request Failed.\n' +
-        `Status Code: ${statusCode}`);
-      console.error( error.message )
-    }
+    //let error
+    //if ( statusCode != 200 ) {
+    //  error = new Error('Request Failed.\n' +
+    //    `Status Code: ${statusCode}`);
+    //  console.error( error.message )
+    //}
   }); 
 
   req.on('error', (e) => {
@@ -150,26 +152,6 @@ function owfRequest(program, method, restPath, paramJson, dataJson, options, hea
 // program.parse(["widget", "-q", "foo.json"]}
 program.parse(process.argv);
 
-var baseRequest
-
-
-// newbe note: function definitions below, are "hoisted" up, before program.parse is executed:
-function requestOptions(u, method, headers ) {  
-   if (typeof headers === "undefined") headers = { 'content-type' : 'application/json' }
-   if (typeof method === "undefined") method = "GET";
-   return {
-        method: method,
-        path: u.pathname + u.search,
-        ca: fs.readFileSync(program.ca), 
-        key: fs.readFileSync(program.key),
-        cert: fs.readFileSync(program.cert),
-        passphrase: program.pw,
-        hostname: u.hostname,
-        port: u.port,
-        headers: headers,
-   }
-}
-
 //    'content-length' : Buffer.byteLength(jsonObject, 'utf8'),
 
 // newbe note: JS first pass discovers this function "getData", the behavior known as 'hoisting' makes known getData 
@@ -179,12 +161,10 @@ function requestOptions(u, method, headers ) {
 //  if you place the definition inside another enclosure, then hoisting is limited to the enclosure scope, as the first pass will does not
 // evaluate the sub-scope definitions.
 //  if assign the funtion to a variable, it is an expression function. Assignment are not evalutated until the code is executed.
-function getData(filePath) {
+function getData(program, filePath) {
   let jsonObj = JSON.parse(fs.readFileSync(filePath, 'utf8').trim());
-  if (program.id) {
-    jsonObj =  Object.assign( jsonObj, { id: program.id } )
-  }
-  return JSON.stringify(jsonObj)
+  if (program.id) jsonObj =  Object.assign( jsonObj, { id: program.id } )
+  return jsonObj
 }
 
 
