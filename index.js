@@ -49,7 +49,7 @@ program.command('update')
   })
   .option('-i --id <guid>', 'ID of widget')
 
- program.command('create [path]')
+ program.command('create')
   .description('Create widget')
   .action(function(options) {
     let data = null

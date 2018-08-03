@@ -1,0 +1,43 @@
+[
+  {
+    "intents": "",
+    "descriptorUrl": "",
+    "widgetTypes": [
+      {
+        "name": "standard",
+        "id": 1
+      }
+    ],
+    "description": "",
+    "version": "",
+    "originalName": "",
+    "width": 200,
+    "height": 200,
+    "widgetGuid": "4c1b6db0-5898-8657-11ea-5837d23e4c1c",
+    "universalName": "",
+    "maximized": "",
+    "id": "",
+    "name": "Test",
+    "groups": "",
+    "title": "Test",
+    "y": "",
+    "x": "",
+    "minimized": "",
+    "url": "http://",
+    "headerIcon": "http://",
+    "image": "http://",
+    "visible": true,
+    "definitionVisible": "",
+    "background": false,
+    "disabled": "",
+    "editable": "",
+    "tags": [],
+    "singleton": false,
+    "allRequired": "",
+    "directRequired": "",
+    "userId": "",
+    "userRealName": "",
+    "totalUsers": "",
+    "totalGroups": ""
+  }
+]
