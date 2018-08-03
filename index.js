@@ -60,15 +60,16 @@ program.command('update')
       console.error(`ERROR: ${options.name()} command requires --qsData or --rbData`)
       process.exit(1);
     }
-      do_request('POST')
+             
+    owfRequest(program, 'POST', 'widget', testData.createWidgetData, null, options);
  })
-  .option('-i --id <guid>', 'ID of widget')
+  .option('-i --id <widgetGuid>', 'ID of widget' )
+  .option('-g --groups <groups>', 'group', "OWF Users")
 
 program.command('delete')
   .description('Delete widget')
   .action(function(options) {
-    if(program.debug) console.error(options);
-    do_request('DELETE')
+    owfRequest(program, 'POST', 'widget', testData.createWidgetData, null, options);
  })
   .option('-i --id <guid>', 'ID of widget')
 
@@ -101,6 +102,9 @@ program.command('test <cmd>')
          process.exit(1);
       }
   });
+
+program.command('foobar', "Tryout commander exec subcommand.");
+
 
 function owfRequest(program, method, restPath, paramJson, dataJson, options, headers) {
   var url = `${program.url}/${restPath}`
@@ -168,7 +172,6 @@ function requestOptions(u, method, headers ) {
 
 //    'content-length' : Buffer.byteLength(jsonObject, 'utf8'),
 
-//function mergeOptionsData(filePath) {
 // newbe note: JS first pass discovers this function "getData", the behavior known as 'hoisting' makes known getData 
 ///  within the scope (in this case the scope is just inside __filename). This is a function definition.
 //  A function definition, as apposed to a funtion expression, will be hoisted.
@@ -184,31 +187,6 @@ function getData(filePath) {
   return JSON.stringify(jsonObj)
 }
 
-function get_qs( ) {
-  if(! program.qsData) return "";
-  let data = getData(program.qsData);
-  return `?${querystring.stringify({data: data})}`;
-}
-function do_request(cmd) {
-  var u = new URL(`${program.url}/widget${get_qs()}`)
-  if( program.rbData)   var body = getData(program.rbData) ;
-  if (program.debug) console.error('reqOptions:', requestOptions(u,cmd));
-  let req = https.request(requestOptions(u,cmd), (res) => { 
-    if (program.debug) {
-      console.error('STATUS: ', res.statusCode); 
-      console.error('HEADERS: ', res.headers); 
-    }
-    res.on('data', (d) => { 
-      process.stdout.write(d); 
-    }); 
-  });
-  if (program.rbData) req.write(JSON.stringify(body));
-  req.on('error', (e) => {
-      console.error(e);
-      process.exit(1);
-  });
-  req.end();
-}
 
 
 
