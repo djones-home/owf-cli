@@ -1,0 +1,16 @@
+{ "createWidgetData":
+[{"intents":"","descriptorUrl":"","widgetTypes":[{"name":"standard","id":1}],"description":"","version":"","originalName":"","width":200,"height":200,"widgetGuid":"4c1b6db0-5898-8657-11ea-5837d23e4c1c","universalName":"","maximized":"","id":"","name":"Test","groups":"","title":"Test","y":"","x":"","minimized":"","url":"http://","headerIcon":"http://","image":"http://","visible":true,"definitionVisible":"","background":false,"disabled":"","editable":"","tags":[],"singleton":false,"allRequired":"","directRequired":"","userId":"","userRealName":"","totalUsers":"","totalGroups":""}]
+, "badWidgetData" :
+[{"intents":"","descriptorUrl":"","widgetTypes":[{"name":"standard","id":1}],"description":"","version":"","originalName":"","width":200,"height":200,"widgetGuid":"4c1b6db0-5898-8657-11ea-5837d23e4c1c","universalName":"","maximized":"","id":"","widgetGUID":"75471c4d-0f37-4246-9046-f5ac5ad59bd2","name":"Test","groups":"","title":"Test","y":"","x":"","minimized":"","url":"http://","headerIcon":"http://","image":"http://","visible":true,"definitionVisible":"","background":false,"disabled":"","editable":"","tags":[],"singleton":false,"allRequired":"","directRequired":"","userId":"","userRealName":"","totalUsers":"","totalGroups":""}],
+  "deleteWidgetData":
+[{"id":"4c1b6db0-5898-8657-11ea-5837d23e4c1c","namespace":"widget","value":{"universalName":null,"namespace":"Test","description":null,"url":"http://","headerIcon":"http://","image":"http://","smallIconUrl":"http://","mediumIconUrl":"http://","width":200,"height":200,"x":0,"y":0,"minimized":false,"maximized":false,"widgetVersion":null,"totalUsers":0,"totalGroups":0,"singleton":false,"visible":true,"background":false,"mobileReady":false,"descriptorUrl":null,"definitionVisible":true,"directRequired":[],"allRequired":[],"intents":{"send":[],"receive":[]},"widgetTypes":[{"id":1,"name":"standard","displayName":"standard"}]},"path":"4c1b6db0-5898-8657-11ea-5837d23e4c1c"}],
+  "config" : {
+    "certFile": "admin.pem",
+    "cert": "admin.pem",
+    "keyFile": "admin.pem",
+    "key": "admin.pem",
+    "ca": "ca-crt.pem",
+    "pw": "password", 
+    "url": "https://ci10.ccs.nps.edu/owf/widget" 
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "owf-cli",
+  "version": "1.0.0",
+  "description": "Ozone Widget Framework Command-line Interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "testWadd"
+  },
+  "author": "Dan Jones",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "inquirer-promise": "^1.0.0",
+    "querystring": "^0.2.0",
+    "shelljs": "^0.8.2"
+  }
+}
