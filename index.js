@@ -49,22 +49,25 @@ program.command('update')
   })
   .option('-i --id <guid>', 'ID of widget')
 
- program.command('create')
+ program.command('create [path]')
   .description('Create widget')
   .action(function(options) {
-    let data
+    let data = null
     if(program.debug) console.error(options);
     if ( program.qsData ) {
-       data = JSON.parse(fs.readFileSync(program.qsData))
+       data = getData(program, program.qsData)
     }
-    if (! program.rbData) {
-      console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData or --rbData`)
+    if ( program.rbData) {
+      console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)
       process.exit(1);
-    }
-    let data =          
+    } 
+    if( ! data )  {
+      console.error('ERROR: data required')
+      process.exit(1)
+    }    
     owfRequest(program, 'POST', 'widget', data, null, options);
  })
-  .option('-i --id <widgetGuid>', 'ID of widget' )
+  .option('-w --widgetGuid <widgetGuid>', 'ID of widget' )
   .option('-g --groups <groups>', 'group', "OWF Users")
 
 program.command('delete <widgitGuid>')
@@ -164,6 +167,7 @@ program.parse(process.argv);
 function getData(program, filePath) {
   let jsonObj = JSON.parse(fs.readFileSync(filePath, 'utf8').trim());
   if (program.id) jsonObj =  Object.assign( jsonObj, { id: program.id } )
+  if (program.widgetGuid) jsonObj =  Object.assign( jsonObj, { widgetGuid: program.widgetGuid } )
   return jsonObj
 }
 
