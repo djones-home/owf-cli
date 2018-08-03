@@ -1,6 +1,6 @@
 {
   "name": "owf-cli",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Ozone Widget Framework Command-line Interface",
   "main": "index.js",
   "scripts": {
@@ -13,5 +13,23 @@
     "inquirer-promise": "^1.0.0",
     "querystring": "^0.2.0",
     "shelljs": "^0.8.2"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djones-home/owf-cli.git"
+  },
+  "keywords": [
+    "Ozone",
+    "OWF",
+    "CLI"
+  ],
+  "bugs": {
+    "url": "https://github.com/djones-home/owf-cli/issues"
+  },
+  "homepage": "https://github.com/djones-home/owf-cli#readme"
 }
