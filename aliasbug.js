@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strick"
 
-// The behavior of this changes when .alias() is added.
+// The behavior of commander changes with .alias() in line 11.
 // Define the program options,  action-based sub-commands, and exec (serached for) sub-command.
 var program = require('commander') 
   .version('0.1.0')
@@ -22,8 +22,9 @@ program.command('test <cmd>')
 
 program.parse(process.argv)
 
-//$ ./aliasbug.js test foo
- // test cmd:  foo 
-// $ ./aliasbug.js test get
-// test cmd:  get 
-// aliasbug-list(1) does not exist, try --help
+//$ ./aliasbug.js test foo 
+// => test cmd:  foo 
+// $ ./aliasbug.js test get => 
+// => test cmd:  get 
+// => aliasbug-list(1) does not exist, try --help
+//  
