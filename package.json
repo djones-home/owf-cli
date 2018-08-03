@@ -1,5 +1,5 @@
 {
-  "name": "owf-cli",
+  "name": "owf",
   "version": "0.0.1",
   "description": "Ozone Widget Framework Command-line Interface",
   "main": "index.js",
@@ -13,6 +13,9 @@
     "inquirer-promise": "^1.0.0",
     "querystring": "^0.2.0",
     "shelljs": "^0.8.2"
+  },
+  "bin": {
+    "owf": "index.js"
   },
   "directories": {
     "lib": "lib",
