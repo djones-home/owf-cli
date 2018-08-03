@@ -70,11 +70,16 @@ program.command('update')
   .option('-w --widgetGuid <widgetGuid>', 'ID of widget' )
   .option('-g --groups <groups>', 'group', "OWF Users")
 
-program.command('delete <widgitGuid>')
+program.command('delete')
   .description('Delete widget')
   .action(function(options) {
-    console.error('Sorry this command YTBD:')
-    process.exit(1);
+    let data = null
+    if ( program.qsData ) data = getData(program, program.qsData)
+    if ( program.rbData) console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)
+    if( ! data )  {
+      console.error('ERROR: data required')
+      process.exit(1)
+    }    
     owfRequest(program, 'DELETE', 'widget', data, null, options);
  })
 
