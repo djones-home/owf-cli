@@ -101,11 +101,6 @@ program.command('test <cmd>')
          break;
        case 'delete' : 
          owfRequest(program, 'DELETE', 'widget', testData.deleteWidgetData, null, options);
-         //var data = testData.deleteWidgetData
-         //var rv = await doHttpRequest('POST', data, config.url, options);
-         //var qs = querystring.stringify({data: JSON.stringify(testData.deleteWidgetData)});
-         //var u = new URL(`${program.url}/widget?${qs}`)
-         //var httpOptions = requestOptions(u, cmd);
          break;
        default :  
          console.error('Error unknown test cmd: ', cmd, '; Expecting [config|create|delete]');
