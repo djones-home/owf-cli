@@ -85,7 +85,7 @@ program.command('delete')
 program.command('test <cmd>')
   .description('Test [config], or the widget [create|delete|whoami] commands, using built-in data')
   .action( (cmd, options) => {
-     var testData = require('./tests/testData.json');
+     var testData = require('../tests/testData.json');
      if (program.debug) console.log("read testData:", JSON.stringify(testData,null, 2) );
      switch(cmd) {
        case 'config' :
@@ -131,12 +131,17 @@ function owfRequest(program, method, restPath, paramJson, dataJson, options, hea
    }
   if (program.debug) console.log('DEBUG: requiestOptions:', httpOpts);
   var req = https.request(httpOpts, (res) => { 
-    const { statusCode } = res;
-    res.on('data', (d) => { 
-      //console.log(JSON.stringify(d, null, 2)); 
-      if (program.table) d = tableOutput(d)
-      process.stdout.write(d); 
-    });
+    //const { statusCode } = res;
+    let body = []
+    res.on('data', (chunk) => { 
+      body.push(chunk)
+    }).on('end', ()=> {
+      body = Buffer.concat(body).toString();
+      if (program.table) {
+        body = tableOutput(JSON.parse(body))
+      };
+      process.stdout.write(body); 
+    })
     //let error
     //if ( statusCode != 200 ) {
     //  error = new Error('Request Failed.\n' +
@@ -172,19 +177,24 @@ function getData(program, filePath) {
   if (program.widgetGuid) jsonObj =  Object.assign( jsonObj, { widgetGuid: program.widgetGuid } )
   return jsonObj
 }
+const urlParse = require('url').parse
 
-
-function tableOutput(data) {
+function tableOutput({data}) {
   let t = new Table
+  let i =1
   data.forEach( e => {
-    t.cell('Name', e.name)
-    t.cell('description', e.description)
-    t.cell('groups', e.groups)
-    t.cell('UUID', e.widgetGuid)
-    t.cell('URL',e.url)
-    t.cell('totalUsers', e.totalUsers )
-    t.cell('totalGroups', e.totalGroups)
+    console.log(i, e.name)
+
+    t.cell('##', i )
+    t.cell('Name', e.value.namespace)
+    //t.cell('UUID', e.id)
+    t.cell('URL', urlParse(e.value.url).path)
+    t.cell('Users', e.value.totalUsers )
+    t.cell('Groups', e.value.totalGroups)
+    //t.cell('description', e.value.description)
+    //t.cell('groups', e.value.groups)
     t.newRow()
+    i++;
   })
   return(t.toString())
 }
