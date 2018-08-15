@@ -146,7 +146,7 @@ function owfRequest(program, method, restPath, paramJson, dataJson, options, hea
       if (program.table) {
         body = tableOutput(JSON.parse(body))
       };
-      process.stdout.write(body); 
+      process.stdout.write(body +"\n"); 
     })
     //let error
     //if ( statusCode != 200 ) {
@@ -165,7 +165,6 @@ function owfRequest(program, method, restPath, paramJson, dataJson, options, hea
 }
 
 // Run this script by invoking:  program.parse
-// program.parse(["widget", "-q", "foo.json"]}
 program.parse(process.argv);
 
 //    'content-length' : Buffer.byteLength(jsonObject, 'utf8'),
@@ -190,7 +189,6 @@ function tableOutput({data}) {
   let i =1
   data.forEach( e => {
     console.log(i, e.name)
-
     t.cell('##', i )
     t.cell('Name', e.value.namespace)
     //t.cell('UUID', e.id)
@@ -218,7 +216,7 @@ async function config_action( program, config, cmd, k , v) {
       fs.writeFileSync( settings, JSON.stringify(o, null, 2), 'utf8')
       break;
     case 'get' : 
-      process.stdout.write(JSON.stringify(o[k]))
+      process.stdout.write(JSON.stringify(o[k])+ "\n")
       break;
     case 'delete' :
       if (! config[k])  break;
