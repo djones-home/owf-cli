@@ -81,6 +81,12 @@ program.command('delete')
     owfRequest(program, 'DELETE', 'widget', data, null, options);
  })
 
+ program.command('config <cmd> [key] [value]')
+ .description( "Configure local settings: config [show|set <key value>|del <k>]")
+ .option('-c --config <path>', 'Config', config.path )
+ .option('-D --debug', 'Debug messages')
+ .action( (cmd, k, v, options) => config_action(program, config, cmd, k, v) )
+
 
 program.command('test <cmd>')
   .description('Test [config], or the widget [create|delete|whoami] commands, using built-in data')
@@ -197,6 +203,31 @@ function tableOutput({data}) {
     i++;
   })
   return(t.toString())
+}
+async function config_action( program, config, cmd, k , v) {
+  program.debug && console.log('cmd:',cmd,'\nk: ', k,'\nv: ', v, '\noptions: ', options)
+  let o = config
+  let settings = o.localSettingsFile
+  o.deleteSettingsFile
+  switch (cmd) {
+    case 'show' :
+      await console.log(JSON.stringify(config, null,2))
+      break;
+    case 'set' :
+      o[k] = v 
+      fs.writeFileSync( settings, JSON.stringify(o, null, 2), 'utf8')
+      break;
+    case 'get' : 
+      process.stdout.write(JSON.stringify(o[k]))
+      break;
+    case 'delete' :
+      if (! config[k])  break;
+      delete o[k]
+      fs.writeFileSync( settings, JSON.stringify(o, null, 2), 'utf8')
+      break;
+    default : 
+      throw new Error(`unknown cmd: ${cmd}` )
+  }
 }
 
 
