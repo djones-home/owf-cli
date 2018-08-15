@@ -6,20 +6,17 @@ const { URL } = require('url');
 const querystring = require("querystring");
 const chalk = require("chalk");
 const path = require("path");
-var config = require('./lib/settings');
+var config = require('../lib/settings');
 var inquirer =  require('inquirer-promise')
+var package = require('../package')
+var Table = require('easy-table')
+var  program
 
-var basePath,  program
-
-// path to the package install folder, or cwd if repl
-// later.. I will  move to a module, where __filename is alway defined by wrapper function.
-var basePath = (typeof __filename === 'undefined') ?  process.cwd() : path.dirname(fs.realpathSync(__filename));
-var config = require('./lib/settings')
 
 
 // Define the program options,  action-based sub-commands, and exec (serached for) sub-command.
 var program = require('commander') 
- .version('0.1.0')
+ .version(package.version)
  .option('-u --url [url]', 'URL to OWF REST', config.baseUrl)
  .option('-c --cert [certFile]', 'Certificate',config.cert)
  .option('-C --ca [caFile]', 'Certificate Authorities File', config.ca)
@@ -28,6 +25,7 @@ var program = require('commander')
  .option('-q --qsData <dataFile>', 'Query string Data parameter .i.e ?data={encoded-json-data-from-dataFile}')
  .option('-r --rbData <dataFile>', 'Request body from JSON dataFile')
  .option('-D --debug', 'Debug messages')
+ .option('-t --table', 'Table output')
 
 // action-based sub-commands
 program.command('show')
@@ -85,7 +83,7 @@ program.command('delete')
 
 
 program.command('test <cmd>')
-  .description('Test [config], or the widget [create|delete] commands, using built-in data')
+  .description('Test [config], or the widget [create|delete|whoami] commands, using built-in data')
   .action( (cmd, options) => {
      var testData = require('./tests/testData.json');
      if (program.debug) console.log("read testData:", JSON.stringify(testData,null, 2) );
@@ -101,6 +99,9 @@ program.command('test <cmd>')
          break;
        case 'delete' : 
          owfRequest(program, 'DELETE', 'widget', testData.deleteWidgetData, null, options);
+         break;
+       case 'whoami' :
+         owfRequest(program, 'GET', 'prefs/person/whoami', null, null, options);
          break;
        default :  
          console.error('Error unknown test cmd: ', cmd, '; Expecting [config|create|delete]');
@@ -133,6 +134,7 @@ function owfRequest(program, method, restPath, paramJson, dataJson, options, hea
     const { statusCode } = res;
     res.on('data', (d) => { 
       //console.log(JSON.stringify(d, null, 2)); 
+      if (program.table) d = tableOutput(d)
       process.stdout.write(d); 
     });
     //let error
@@ -172,6 +174,20 @@ function getData(program, filePath) {
 }
 
 
+function tableOutput(data) {
+  let t = new Table
+  data.forEach( e => {
+    t.cell('Name', e.name)
+    t.cell('description', e.description)
+    t.cell('groups', e.groups)
+    t.cell('UUID', e.widgetGuid)
+    t.cell('URL',e.url)
+    t.cell('totalUsers', e.totalUsers )
+    t.cell('totalGroups', e.totalGroups)
+    t.newRow()
+  })
+  return(t.toString())
+}
 
 
 

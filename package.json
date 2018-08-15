@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.1",
+    "easy-table": "^1.1.1",
     "inquirer-promise": "^1.0.0",
     "querystring": "^0.2.0",
     "shelljs": "^0.8.2"
