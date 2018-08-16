@@ -1,0 +1,21 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/slacWidgetUI/descriptor.html",
+    "intents": {},
+    "widgetVersion": "null",
+    "width": 300,
+    "singleton": true,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/slacWidgetUI/images/owf/icon.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/slacWidgetUI/images/owf/icon.png",
+    "displayName": "Solar Lunar Almanac Prediction",
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "description": "Compute solar/lunar almanac data.",
+    "widgetUrl": "https://ci10.ccs.nps.edu/slacWidgetUI/index.jsp",
+    "height": 500,
+    "universalName": "slac.fnmoc.navy.mil",
+    "visible": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/NrdbSvc/descriptor.html",
+    "width": 500,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/NrdbSvc/images/nrdb_256.PNG",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/NrdbSvc/images/nrdb_16.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/NrdbSvc/index.jsp",
+    "widgetVersion": "1.0",
+    "description": "Navy Rule Database",
+    "displayName": "NRDB",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": true,
+    "height": 300,
+    "universalName": "NRDB.gis.fnmoc.navy.mil"
+  }
+}

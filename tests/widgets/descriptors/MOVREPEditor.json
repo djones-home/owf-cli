@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/MOVREPEditor/descriptor.html",
+    "width": 600,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/MOVREPEditor/images/movrepeditor.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/MOVREPEditor/images/movrepeditor.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/MOVREPEditor/index.jsp",
+    "widgetVersion": "1.0",
+    "description": "Create or edit MOVREPs",
+    "displayName": "MOVREP Editor",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": true,
+    "height": 600,
+    "universalName": "MOVREPEditor.gis.fnmoc.navy.mil"
+  }
+}

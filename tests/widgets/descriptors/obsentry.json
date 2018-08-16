@@ -1,0 +1,21 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/obsentry/descriptor.html",
+    "width": 375,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/obsentry//resources/images/launch-icon.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/obsentry//resources/images/launch-icon.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/obsentry/index.jsp",
+    "widgetVersion": "1.0",
+    "description": "Observation Entry Widget",
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": true,
+    "height": 375,
+    "universalName": "ObsEntry.gis.fnmoc.navy.mil",
+    "displayName": "Observation Entry Widget"
+  }
+}

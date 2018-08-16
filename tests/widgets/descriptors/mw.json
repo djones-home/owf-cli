@@ -1,0 +1,24 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/mw/descriptor.html",
+    "width": 200,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/mw/images/details.jpg",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/mw/images/details.jpg",
+    "widgetUrl": "https://ci10.ccs.nps.edu/mw/",
+    "widgetVersion": "1.0",
+    "description": "Allows users to view layer meta data",
+    "defaultTags": [
+      "map",
+      "geo"
+    ],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": false,
+    "height": 200,
+    "universalName": "nn.wmsinfo",
+    "displayName": "Layer Info"
+  }
+}

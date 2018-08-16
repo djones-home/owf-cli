@@ -1,0 +1,24 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/kmlManager/descriptor.html",
+    "width": 200,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/kmlManager//images/launch-icon.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/kmlManager//images/launch-icon.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/kmlManager/",
+    "widgetVersion": "1.0",
+    "description": "Allows users manage KML/KMZ files",
+    "defaultTags": [
+      "map",
+      "geo"
+    ],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": false,
+    "visible": true,
+    "height": 200,
+    "universalName": "nn.KmlManager",
+    "displayName": "KML Manager"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/doc/descriptor.html",
+    "width": 700,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/doc/images/doc-icon.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/doc/images/doc-icon.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/doc/Selection.html",
+    "widgetVersion": "1.0",
+    "description": "Order data from servers.",
+    "displayName": "Data Ordering Client",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": true,
+    "height": 800,
+    "universalName": "DataOrderingClient.gis.fnmoc.navy.mil"
+  }
+}

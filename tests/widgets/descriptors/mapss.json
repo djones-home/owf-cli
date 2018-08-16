@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/mapss/descriptor.html",
+    "width": 700,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/mapss/images/mapss-icon.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/mapss/images/mapss-icon.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/mapss/Selection.html",
+    "widgetVersion": "1.0",
+    "description": "Select data layers for display on a map.",
+    "displayName": "Product Selection",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": true,
+    "height": 800,
+    "universalName": "ProductSelectionTool.gis.fnmoc.navy.mil"
+  }
+}

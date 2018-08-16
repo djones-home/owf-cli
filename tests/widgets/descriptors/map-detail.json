@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/map-detail/descriptor.html",
+    "width": 600,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/map-detail/images/pref-icon.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/map-detail/images/pref-icon.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/map-detail/Mapdetail.html",
+    "widgetVersion": "1.0",
+    "description": "Interrogate aphanumeric data from the Map.",
+    "displayName": "Map Detail",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": true,
+    "height": 600,
+    "universalName": "MapDetail.gis.fnmoc.navy.mil"
+  }
+}

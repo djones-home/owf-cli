@@ -1,0 +1,19 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/planaTerra/descriptor.html",
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/planaTerra//images/map.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/planaTerra//images/map.png",
+    "singleton": false,
+    "widgetUrl": "https://ci10.ccs.nps.edu/planaTerra//map.html",
+    "displayName": "Map",
+    "widgetTypes": [
+      "standard"
+    ],
+    "width": 400,
+    "background": false,
+    "universalName": "nn.planaTerra",
+    "description": "View and investigate data layers.",
+    "height": 400,
+    "visible": true
+  }
+}

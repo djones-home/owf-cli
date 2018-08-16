@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/smw/descriptor.html",
+    "width": 600,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/smw/images/srvmgr-icon.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/smw/images/srvmgr-icon.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/smw/Selection.html",
+    "widgetVersion": "1.0",
+    "description": "Detects user inactivity in owf.",
+    "displayName": "Session Management Widget",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": true,
+    "singleton": true,
+    "visible": false,
+    "height": 600,
+    "universalName": "SessionManagementWidget.gis.fnmoc.navy.mil"
+  }
+}

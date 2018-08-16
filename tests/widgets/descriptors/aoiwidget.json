@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/aoiwidget/descriptor.html",
+    "width": 600,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/aoiwidget/images/aoi-icon.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/aoiwidget/images/aoi-icon.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/aoiwidget/AOI.html",
+    "widgetVersion": "1.0",
+    "description": "Define, save, edit an Area of Interest(AOI).",
+    "displayName": "AOI Widget",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": true,
+    "height": 600,
+    "universalName": "AOIWidget.gis.fnmoc.navy.mil"
+  }
+}

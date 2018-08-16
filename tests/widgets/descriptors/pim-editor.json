@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/pim-editor/descriptor.html",
+    "width": 600,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/pim-editor/images/pimeditor.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/pim-editor/images/pimeditor.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/pim-editor/PIMEditor.html",
+    "widgetVersion": "1.0",
+    "description": "Plot a route and calculate CPA",
+    "displayName": "PIM Editor",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": true,
+    "height": 600,
+    "universalName": "PIMEditor.gis.fnmoc.navy.mil"
+  }
+}

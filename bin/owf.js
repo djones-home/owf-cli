@@ -8,10 +8,11 @@ const chalk = require("chalk");
 const path = require("path");
 var config = require('../lib/settings');
 var inquirer =  require('inquirer-promise')
-var package = require('../package')
-var Table = require('easy-table')
-var  program
+const package = require('../package')
+const Table = require('easy-table')
+const uuid = require('uuid')
 
+var  program
 
 
 // Define the program options,  action-based sub-commands, and exec (serached for) sub-command.
@@ -29,7 +30,7 @@ var program = require('commander')
 
 // action-based sub-commands
 program.command('show')
-   .description( "show progrm " )
+   .description( "show internal-program object" )
    .action( function(options) { console.log("\n==\nprogram= ", program, '\n===\noptions = ',options); })
 
 program.command('list')
@@ -45,7 +46,8 @@ program.command('update')
     console.error('Sorry this command YTBD:')
     process.exit(1)
   })
-  .option('-i --id <guid>', 'ID of widget')
+  .option('-w --widget <id|name>', 'ID or Name of widget' )
+
 
  program.command('create')
   .description('Create widget')
@@ -53,7 +55,7 @@ program.command('update')
     let data = null
     if(program.debug) console.error(options);
     if ( program.qsData ) {
-       data = getData(program, program.qsData)
+       data = validateWidget(getData(program, program.qsData))
     }
     if ( program.rbData) {
       console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)
@@ -65,7 +67,7 @@ program.command('update')
     }    
     owfRequest(program, 'POST', 'widget', data, null, options);
  })
-  .option('-w --widgetGuid <widgetGuid>', 'ID of widget' )
+  .option('-w --widget <id|name>', 'ID or Name of widget' )
   .option('-g --groups <groups>', 'group', "OWF Users")
 
 program.command('delete')
@@ -79,7 +81,9 @@ program.command('delete')
       process.exit(1)
     }    
     owfRequest(program, 'DELETE', 'widget', data, null, options);
- })
+  })
+  .option('-w --widget <id|name>', 'ID or Name of widget' )
+
 
  program.command('config <cmd> [key] [value]')
  .description( "Configure local settings: config [show|set <key value>|del <k>]")
@@ -137,7 +141,7 @@ function owfRequest(program, method, restPath, paramJson, dataJson, options, hea
    }
   if (program.debug) console.log('DEBUG: requiestOptions:', httpOpts);
   var req = https.request(httpOpts, (res) => { 
-    //const { statusCode } = res;
+    const { statusCode } = res;
     let body = []
     res.on('data', (chunk) => { 
       body.push(chunk)
@@ -148,12 +152,12 @@ function owfRequest(program, method, restPath, paramJson, dataJson, options, hea
       };
       process.stdout.write(body +"\n"); 
     })
-    //let error
-    //if ( statusCode != 200 ) {
-    //  error = new Error('Request Failed.\n' +
-    //    `Status Code: ${statusCode}`);
-    //  console.error( error.message )
-    //}
+    let error
+    if ( statusCode != 200 ) {
+      error = new Error('Request Failed.\n' +
+        `Status Code: ${statusCode}`);
+      console.error( error.message )
+    }
   }); 
 
   req.on('error', (e) => {
@@ -188,11 +192,11 @@ function tableOutput({data}) {
   let t = new Table
   let i =1
   data.forEach( e => {
-    console.log(i, e.name)
     t.cell('##', i )
     t.cell('Name', e.value.namespace)
     //t.cell('UUID', e.id)
-    t.cell('URL', urlParse(e.value.url).path)
+    //t.cell('URL', urlParse(e.value.url).path)
+    t.cell('Name', e.value.universalName)
     t.cell('Users', e.value.totalUsers )
     t.cell('Groups', e.value.totalGroups)
     //t.cell('description', e.value.description)
@@ -227,6 +231,7 @@ async function config_action( program, config, cmd, k , v) {
       throw new Error(`unknown cmd: ${cmd}` )
   }
 }
+
 
 
 

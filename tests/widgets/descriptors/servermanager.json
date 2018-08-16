@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/servermanager/descriptor.html",
+    "width": 600,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/servermanager/images/srvmgr-icon.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/servermanager/images/srvmgr-icon.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/servermanager/ServerManager.html",
+    "widgetVersion": "1.0",
+    "description": "Verify server connection status.",
+    "displayName": "Server Manager",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": true,
+    "visible": true,
+    "height": 600,
+    "universalName": "ServerManager.gis.fnmoc.navy.mil"
+  }
+}

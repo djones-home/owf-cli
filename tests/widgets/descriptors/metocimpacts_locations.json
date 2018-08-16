@@ -1,0 +1,25 @@
+{
+  "data": {
+    "descriptorUrl": "https://ci10.ccs.nps.edu/metocimpacts/locations/descriptor.html",
+    "width": 400,
+    "imageUrlMedium": "https://ci10.ccs.nps.edu/metocimpacts/images/metocimpacts.png",
+    "imageUrlSmall": "https://ci10.ccs.nps.edu/metocimpacts/images/location-small.png",
+    "widgetUrl": "https://ci10.ccs.nps.edu/metocimpacts/MetocImpactsLocations.html",
+    "widgetVersion": "1.0",
+    "description": "Compute environmental impacts on assets.",
+    "displayName": "MI Locations",
+    "intents": {
+      "send": [],
+      "receive": []
+    },
+    "defaultTags": [],
+    "widgetTypes": [
+      "standard"
+    ],
+    "background": false,
+    "singleton": false,
+    "visible": false,
+    "height": 650,
+    "universalName": "METOCImpactsLocations.gis.fnmoc.navy.mil"
+  }
+}
