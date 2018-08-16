@@ -55,7 +55,7 @@ program.command('update')
     let data = null
     if(program.debug) console.error(options);
     if ( program.qsData ) {
-       data = validate(getData(program, program.qsData))
+       data = [ validate(program, getData(program, program.qsData)) ]
     }
     if ( program.rbData) {
       console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)

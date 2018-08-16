@@ -7,10 +7,11 @@
     {
         "type": "node",
         "request": "launch",
-        "name": "tableOutput",
-        "program": "${workspaceFolder}/bin/owf.js",
+        "name": "create widget SystemCon",
+        "program": "${workspaceFolder}/bin/owf-widget.js",
         "args": [
-            "-t", "--pw", "changeit", "list"
+            "create", "-q",
+            "/home/djones/projects/owf-cli/tests/widgets/descriptors/SystemConfiguration.json"
         ]
     },
         {
