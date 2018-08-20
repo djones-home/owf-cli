@@ -27,6 +27,7 @@ var program = require('commander')
  .option('-r --rbData <dataFile>', 'Request body from JSON dataFile')
  .option('-D --debug', 'Debug messages')
  .option('-t --table', 'Table output')
+ .option('-g --groups <groups>', 'group', "OWF Users")
 
 // action-based sub-commands
 program.command('show')
@@ -40,14 +41,13 @@ program.command('list')
     .then(data => console.log( program.table ? tableOutput(JSON.parse(data)) : data))
   })
 
-program.command('update')
+program.command('update <filter>')
   .description('Update widget')
   .action(function(option) {
     if(program.debug) console.error(options);
     console.error('Sorry this command YTBD:')
     process.exit(1)
   })
-  .option('-w --widget <id|name>', 'ID or Name of widget' )
 
 
  program.command('create')
@@ -69,36 +69,21 @@ program.command('update')
     owfRequest({program, method: 'POST', restPath: 'widget', paramJson: data})
     .then(data => console.log(data));
  })
-  .option('-w --widget <id|name>', 'ID or Name of widget' )
-  .option('-g --groups <groups>', 'group', "OWF Users")
 
-program.command('delete')
-  .description('Delete widget')
-  .action(function(options) {
-    let data = null
-    if ( program.qsData ) data = getData(program, program.qsData)
-    if ( program.rbData) console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)
-    if ( program.widget ) {
-      data = getWidget(program)
-      if (data && data.length == 0 ) { 
-        console.error(`Widget name or id not found with /${program.widget}/`)
-        process.exit(1)
-      }
-      if (data && data.length > 1 ) { 
-        console.error(data, `\nMore than one Widget found, using /${program.widget}/`)
-        process.exit(1)
-      }
-
-    }
-    if( ! data )  {
-      console.error('ERROR: data required')
-      process.exit(1)
-    }    
-    owfRequest({program, method: 'DELETE', restPath: 'widget', paramJson: data})
-    .then(data => console.log(data));
+ // dj@dj12:~/projects/owf-cli$ ./bin/owf.js widget delete Test
+program.command('delete <filter>')
+  .description('Delete widget selected by filter RegExp')
+  .action(function(re, options) {
+      let data = null
+      getWidget(program, re).then( data => {
+        if ( data.length != 1 ) { 
+          console.error(`ERROR: Found ${data.length}, with widgetRegExp /${program.widgetRegExp}/ must resolve to One Widget name or id `)
+          process.exit(1)
+        }
+        owfRequest({program, method: 'DELETE', restPath: 'widget', paramJson: data})
+        .then(data => console.log(data));  
+      })
   })
-  .option('-w --widget <id|name>', 'ID or Name of widget' )
-
 
 program.command('test <cmd>')
   .description('Test [config], or the widget [create|delete|whoami] commands, using built-in data')
@@ -153,12 +138,14 @@ function getData(program, filePath) {
 
 
 
-async function getWidget(program) {
+async function getWidget(program, re ) {
   try {
-    return JSON.parse(await owfRequest({program, restPath: "widget"})).data.filter(w => {
-      [ w.id, w.value.namespace, w.value.universalName ].filter( v => RegExp(program.widget).test(v)).length != 0
+    let data = await owfRequest({program, restPath: "widget"})
+    return JSON.parse(data).data.filter(w => {
+      return (RegExp(re).test( w.id ) ||
+        RegExp(re).test( w.value.namespace ) ||
+        RegExp(re).test( w.universalName ) ) 
     })
-
   } catch (err) { 
     console.error(err)
     process.exit(1)

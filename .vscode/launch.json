@@ -17,8 +17,9 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "bin/try",
-            "program": "${workspaceFolder}/bin/try.js"
+            "name": "delete Test",
+            "program": "${workspaceFolder}/bin/owf-widget.js",
+            "args": [ "delete", "-w", "Test"]
         },
         {
             "type": "node",
