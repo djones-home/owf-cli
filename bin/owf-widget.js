@@ -78,7 +78,18 @@ program.command('delete')
     let data = null
     if ( program.qsData ) data = getData(program, program.qsData)
     if ( program.rbData) console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)
-    if ( program.widget ) data = getWidget(program)
+    if ( program.widget ) {
+      data = getWidget(program)
+      if (data && data.length == 0 ) { 
+        console.error(`Widget name or id not found with /${program.widget}/`)
+        process.exit(1)
+      }
+      if (data && data.length > 1 ) { 
+        console.error(data, `\nMore than one Widget found, using /${program.widget}/`)
+        process.exit(1)
+      }
+
+    }
     if( ! data )  {
       console.error('ERROR: data required')
       process.exit(1)
@@ -142,5 +153,16 @@ function getData(program, filePath) {
 
 
 
+async function getWidget(program) {
+  try {
+    return JSON.parse(await owfRequest({program, restPath: "widget"})).data.filter(w => {
+      [ w.id, w.value.namespace, w.value.universalName ].filter( v => RegExp(program.widget).test(v)).length != 0
+    })
 
+  } catch (err) { 
+    console.error(err)
+    process.exit(1)
+  }
+
+}
 
