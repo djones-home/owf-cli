@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 "use strick"
 const fs = require('fs'); 
-const https = require('https'); 
 const { URL } = require('url');
 const querystring = require("querystring");
 const chalk = require("chalk");
 const path = require("path");
 var config = require('../lib/settings');
+const {owfRequest} = require('../lib/owfRequest')
 var inquirer =  require('inquirer-promise')
 const package = require('../package')
 const uuid = require('uuid')
-const {tableOutput, validate} = require('../lib/widget')
+const {tableOutput, validate, testcase } = require('../lib/widget')
 
 var  program
 
@@ -36,7 +36,8 @@ program.command('show')
 program.command('list')
   .description('List widgets')
   .action(function(options) {    
-    owfRequest(program, 'GET', 'widget', null, null, options);
+    owfRequest({program, restPath: 'widget'})
+    .then(data => console.log( program.table ? tableOutput(JSON.parse(data)) : data))
   })
 
 program.command('update')
@@ -65,7 +66,8 @@ program.command('update')
       console.error('ERROR: data required')
       process.exit(1)
     }    
-    owfRequest(program, 'POST', 'widget', data, null, options);
+    owfRequest({program, method: 'POST', restPath: 'widget', paramJson: data})
+    .then(data => console.log(data));
  })
   .option('-w --widget <id|name>', 'ID or Name of widget' )
   .option('-g --groups <groups>', 'group', "OWF Users")
@@ -76,11 +78,13 @@ program.command('delete')
     let data = null
     if ( program.qsData ) data = getData(program, program.qsData)
     if ( program.rbData) console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)
+    if ( program.widget ) data = getWidget(program)
     if( ! data )  {
       console.error('ERROR: data required')
       process.exit(1)
     }    
-    owfRequest(program, 'DELETE', 'widget', data, null, options);
+    owfRequest({program, method: 'DELETE', restPath: 'widget', paramJson: data})
+    .then(data => console.log(data));
   })
   .option('-w --widget <id|name>', 'ID or Name of widget' )
 
@@ -91,23 +95,23 @@ program.command('test <cmd>')
      var testData = require('../tests/testData.json');
      if (program.debug) console.log("read testData:", JSON.stringify(testData,null, 2) );
      switch(cmd) {
-       case 'config' :
-         console.log( JSON.stringify(config, null, 2))
-         break;
-       case 'create' :  
-         owfRequest(program, 'POST', 'widget', testData.createWidgetData, null, options);
-         //var qs = querystring.stringify({data: JSON.stringify(testData.createWidgetData)});
-         //var u = new URL(`${program.url}/widget?${qs}`)
-         //var httpOptions = requestOptions(u, 'POST');
+       case 'validate': 
+         testcase(program, null)
+         break; 
+       case 'create' :
+         owfRequest({program, method: 'POST', restPath: 'widget', parmJson: testData.createWidgetData})
+         .then(data => console.log(data));
          break;
        case 'delete' : 
-         owfRequest(program, 'DELETE', 'widget', testData.deleteWidgetData, null, options);
+         owfRequest({program, method: 'DELETE', restPath: 'widget', parmJson: testData.deleteWidgetData})
+         .then(data => console.log(data));
          break;
        case 'whoami' :
-         owfRequest(program, 'GET', 'prefs/person/whoami', null, null, options);
+         owfRequest({program, restPath: 'prefs/person/whoami'})
+         .then(data => console.log(data));
          break;
        default :  
-         console.error('Error unknown test cmd: ', cmd, '; Expecting [config|create|delete]');
+         console.error('Error unknown test cmd: ', cmd, '; Expecting [validate|create|delete|whoami]');
          process.exit(1);
       }
   });
@@ -115,51 +119,7 @@ program.command('test <cmd>')
 program.command('foobar', "Tryout commander exec subcommand.");
 
 
-function owfRequest(program, method, restPath, paramJson, dataJson, options, headers) {
-  var url = `${program.url}/${restPath}`
-  if (paramJson)  url += `?${querystring.stringify({data: JSON.stringify(paramJson)})}`
-  if (typeof headers === "undefined") headers = { 'content-type' : 'application/json' }
-  if (typeof method === "undefined") method = "GET";
-  let u = new URL(url)
-  let httpOpts =  {
-        method: method,
-        path: u.pathname + u.search,
-        ca: fs.readFileSync(program.ca), 
-        key: fs.readFileSync(program.key),
-        cert: fs.readFileSync(program.cert),
-        passphrase: program.pw,
-        hostname: u.hostname,
-        port: u.port,
-        headers: headers,
-   }
-  if (program.debug) console.log('DEBUG: requiestOptions:', httpOpts);
-  var req = https.request(httpOpts, (res) => { 
-    const { statusCode } = res;
-    let body = []
-    res.on('data', (chunk) => { 
-      body.push(chunk)
-    }).on('end', ()=> {
-      body = Buffer.concat(body).toString();
-      if (program.table) {
-        body = tableOutput(JSON.parse(body))
-      };
-      process.stdout.write(body +"\n"); 
-    })
-    let error
-    if ( statusCode != 200 ) {
-      error = new Error('Request Failed.\n' +
-        `Status Code: ${statusCode}`);
-      console.error( error.message )
-    }
-  }); 
 
-  req.on('error', (e) => {
-    console.error(e);
-    process.exit(1);
-  });
-
-  req.end()
-}
 
 // Run this script by invoking:  program.parse
 program.parse(process.argv);
