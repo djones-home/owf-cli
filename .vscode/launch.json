@@ -24,7 +24,7 @@
             "type": "node",
             "request": "launch",
             "name": "test delete",
-            "program": "${workspaceFolder}/index.js",
+            "program": "${workspaceFolder}/bin/owf-widget.js",
             "args": [
                 "test", "delete"
             ]
@@ -33,7 +33,7 @@
             "type": "node",
             "request": "launch",
             "name": "test create",
-            "program": "${workspaceFolder}/index.js",
+            "program": "${workspaceFolder}/bin/owf-widget.js",
             "args": [ "test", "create"]
         }
     ]

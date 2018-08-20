@@ -110,11 +110,11 @@ program.command('test <cmd>')
          testcase(program, null)
          break; 
        case 'create' :
-         owfRequest({program, method: 'POST', restPath: 'widget', parmJson: testData.createWidgetData})
+         owfRequest({program, method: 'POST', restPath: 'widget', paramJson: testData.createWidgetData})
          .then(data => console.log(data));
          break;
        case 'delete' : 
-         owfRequest({program, method: 'DELETE', restPath: 'widget', parmJson: testData.deleteWidgetData})
+         owfRequest({program, method: 'DELETE', restPath: 'widget', paramJson: testData.deleteWidgetData})
          .then(data => console.log(data));
          break;
        case 'whoami' :
