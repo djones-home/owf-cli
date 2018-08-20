@@ -56,12 +56,13 @@ program.command('update <filter>')
     let data = null
     if(program.debug) console.error(options);
     if ( program.qsData ) {
-       data = [ validate(program, getData(program, program.qsData)) ]
+       data = validate(program, getData(program, program.qsData))
     }
     if ( program.rbData) {
       console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)
       process.exit(1);
-    } 
+    }  
+    fs.writeFileSync('./jkCreateWidgetValidateData.json', JSON.stringify(data,null,2))
     if( ! data )  {
       console.error('ERROR: data required')
       process.exit(1)
@@ -77,7 +78,7 @@ program.command('delete <filter>')
       let data = null
       getWidget(program, re).then( data => {
         if ( data.length != 1 ) { 
-          console.error(`ERROR: Found ${data.length}, with widgetRegExp /${program.widgetRegExp}/ must resolve to One Widget name or id `)
+          console.error(`ERROR: Found ${data.length}, with widgetRegExp /${re}/ must resolve to One Widget name or id `)
           process.exit(1)
         }
         owfRequest({program, method: 'DELETE', restPath: 'widget', paramJson: data})
@@ -142,9 +143,9 @@ async function getWidget(program, re ) {
   try {
     let data = await owfRequest({program, restPath: "widget"})
     return JSON.parse(data).data.filter(w => {
-      return (RegExp(re).test( w.id ) ||
+      return ( RegExp(re).test( w.id ) ||
         RegExp(re).test( w.value.namespace ) ||
-        RegExp(re).test( w.universalName ) ) 
+        RegExp(re).test( w.value.universalName ) ) 
     })
   } catch (err) { 
     console.error(err)

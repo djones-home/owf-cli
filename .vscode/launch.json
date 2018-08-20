@@ -19,7 +19,7 @@
             "request": "launch",
             "name": "delete Test",
             "program": "${workspaceFolder}/bin/owf-widget.js",
-            "args": [ "delete", "-w", "Test"]
+            "args": [ "delete", "Test"]
         },
         {
             "type": "node",
