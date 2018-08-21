@@ -70,7 +70,7 @@ program.command('update <filter>')
     owfRequest({program, method: 'POST', restPath: 'widget', paramJson: data})
     .then(data => {
       console.log(data)
-      program.groups.split(',').forEach( g => addGroup(program, g.trim(), data[0].id))
+      program.groups.split(',').forEach( g => addGroup(program, g.trim(), JSON.parse(data).data[0].id))
     });
  })
 
