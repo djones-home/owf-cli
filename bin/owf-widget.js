@@ -26,7 +26,7 @@ var program = require('commander')
  .option('-q --qsData <dataFile>', 'Query string Data parameter .i.e ?data={encoded-json-data-from-dataFile}')
  .option('-r --rbData <dataFile>', 'Request body from JSON dataFile')
  .option('-D --debug', 'Debug messages')
- .option('-g --groups <groups>', 'group', "OWF Users")
+ .option('-g --groups <groups>', 'group', config.groups || "OWF Users,OWF Administrators")
  .option('-o --output <type>', 'Table output', config.output || "json")
 
 // action-based sub-commands
