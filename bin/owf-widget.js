@@ -10,7 +10,7 @@ const {owfRequest} = require('../lib/owfRequest')
 var inquirer =  require('inquirer-promise')
 const package = require('../package')
 const uuid = require('uuid')
-const {tableOutput, validate, testcase } = require('../lib/widget')
+const {tableOutput, validate, testcase, addGroup, getWidget } = require('../lib/widget')
 
 var  program
 
@@ -62,13 +62,16 @@ program.command('update <filter>')
       console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)
       process.exit(1);
     }  
-    fs.writeFileSync('./jkCreateWidgetValidateData.json', JSON.stringify(data,null,2))
+   // fs.writeFileSync('./jkCreateWidgetValidateData.json', JSON.stringify(data,null,2))
     if( ! data )  {
       console.error('ERROR: data required')
       process.exit(1)
     }    
     owfRequest({program, method: 'POST', restPath: 'widget', paramJson: data})
-    .then(data => console.log(data));
+    .then(data => {
+      console.log(data)
+      program.groups.split(',').forEach( g => addGroup(program, g, data[0].id))
+    });
  })
 
  // dj@dj12:~/projects/owf-cli$ ./bin/owf.js widget delete Test
@@ -107,6 +110,24 @@ program.command('test <cmd>')
          owfRequest({program, restPath: 'prefs/person/whoami'})
          .then(data => console.log(data));
          break;
+      case 'doit' :
+        var qs  = {
+          "widget_id": "48141aaa-0417-49d7-8c20-1a1c3b138043",
+          "tab": "groups",
+          "update_action": "add",
+          "data": JSON.stringify([{"name": "OWF Users", "id": 202 }])
+        }
+    
+        owfRequest({program, method: 'PUT', restPath: `widget?${querystring.stringify(qs)}`} )
+        .then(data => console.log(data))
+        break;
+
+      case 'showit' :
+        owfRequest({program, restPath: 'widget?widgetGuid=48141aaa-0417-49d7-8c20-1a1c3b138043'})
+        .then(data => console.log(data));
+        break;
+  
+
        default :  
          console.error('Error unknown test cmd: ', cmd, '; Expecting [validate|create|delete|whoami]');
          process.exit(1);
@@ -139,18 +160,18 @@ function getData(program, filePath) {
 
 
 
-async function getWidget(program, re ) {
-  try {
-    let data = await owfRequest({program, restPath: "widget"})
-    return JSON.parse(data).data.filter(w => {
-      return ( RegExp(re).test( w.id ) ||
-        RegExp(re).test( w.value.namespace ) ||
-        RegExp(re).test( w.value.universalName ) ) 
-    })
-  } catch (err) { 
-    console.error(err)
-    process.exit(1)
-  }
 
+async function getGroup(program, re) {
+  try {
+    let data = await owfRequest({program, restPath: "group"})
+    return JSON.parse(data).data.filter(o => {
+      return ( RegExp(re).test( o.id ) ||
+        RegExp(re).test( o.name ) ||
+        RegExp(re).test( o.displayName ) ) 
+    })
+  } catch (err) {
+     console.error(err)
+     process.exit(1)
+  }
 }
 
