@@ -26,7 +26,7 @@ var program = require('commander')
  .option('-q --qsData <dataFile>', 'Query string Data parameter .i.e ?data={encoded-json-data-from-dataFile}')
  .option('-r --rbData <dataFile>', 'Request body from JSON dataFile')
  .option('-D --debug', 'Debug messages')
- .option('-t --table', 'Table output')
+ .option('-o --output', 'Output type', config.output || 'json')
  .option('-g --groups <groups>', 'group', "OWF Users")
 
 // action-based sub-commands
@@ -38,7 +38,7 @@ program.command('list')
   .description('List widgets')
   .action(function(options) {    
     owfRequest({program, restPath: 'widget'})
-    .then(data => console.log( program.table ? tableOutput(JSON.parse(data)) : data))
+    .then(data => console.log( program.output != 'json' ? tableOutput(JSON.parse(data)) : data))
   })
 
 program.command('update <filter>')
@@ -70,7 +70,7 @@ program.command('update <filter>')
     owfRequest({program, method: 'POST', restPath: 'widget', paramJson: data})
     .then(data => {
       console.log(data)
-      program.groups.split(',').forEach( g => addGroup(program, g, data[0].id))
+      program.groups.split(',').forEach( g => addGroup(program, g.trim(), data[0].id))
     });
  })
 
@@ -161,17 +161,4 @@ function getData(program, filePath) {
 
 
 
-async function getGroup(program, re) {
-  try {
-    let data = await owfRequest({program, restPath: "group"})
-    return JSON.parse(data).data.filter(o => {
-      return ( RegExp(re).test( o.id ) ||
-        RegExp(re).test( o.name ) ||
-        RegExp(re).test( o.displayName ) ) 
-    })
-  } catch (err) {
-     console.error(err)
-     process.exit(1)
-  }
-}
 
