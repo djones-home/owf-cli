@@ -2,21 +2,19 @@
   "name": "owf",
   "version": "0.0.1",
   "description": "Ozone Widget Framework Command-line Interface",
-  "main": "index.js",
+  "main": "bin/owf.js",
   "scripts": {
     "test": "testWadd"
   },
   "author": "Dan Jones",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^2.4.1",
     "easy-table": "^1.1.1",
-    "inquirer-promise": "^1.0.0",
     "querystring": "^0.2.0",
     "shelljs": "^0.8.2"
   },
   "bin": {
-    "owf": "index.js"
+    "owf": "bin/owf.js"
   },
   "directories": {
     "lib": "lib",

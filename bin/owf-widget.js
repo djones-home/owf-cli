@@ -3,11 +3,9 @@
 const fs = require('fs'); 
 const { URL } = require('url');
 const querystring = require("querystring");
-const chalk = require("chalk");
 const path = require("path");
 var config = require('../lib/settings');
 const {owfRequest} = require('../lib/owfRequest')
-var inquirer =  require('inquirer-promise')
 const package = require('../package')
 const uuid = require('uuid')
 const {tableOutput, validate, testcase, addGroup, getWidget } = require('../lib/widget')
