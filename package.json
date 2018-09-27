@@ -1,5 +1,5 @@
 {
-  "name": "owf",
+  "name": "owf-cli",
   "version": "0.0.1",
   "description": "Ozone Widget Framework Command-line Interface",
   "main": "bin/owf.js",
