@@ -12,7 +12,8 @@
     "commander": "^2.18.0",
     "easy-table": "^1.1.1",
     "querystring": "^0.2.0",
-    "shelljs": "^0.8.2"
+    "shelljs": "^0.8.2",
+    "uuid": "^3.3.2"
   },
   "bin": {
     "owf": "bin/owf.js"
