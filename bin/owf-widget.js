@@ -55,6 +55,8 @@ program.command('update <filter>')
     if(program.debug) console.error(options);
     if ( program.qsData ) {
        data = validate(program, getData(program, program.qsData))
+       if(program.debug) console.error(JSON.stringify(data,null,2));
+
     }
     if ( program.rbData) {
       console.error(`ERROR: ${options.name()} Sorry rbData is not implemented yet, use  --qsData`)
