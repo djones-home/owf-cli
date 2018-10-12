@@ -19,6 +19,7 @@ program.command('debug')
    program.command('widget', 'widget commands')
    program.command('widgettype', 'widgettype commands')
    program.command('group', 'owf group commands')
+   program.command('user', 'user group commands')
 
  program.command('config <cmd> [key] [value]')
  .description( "Configure local settings: config [show|set <key value>|del <k>]")

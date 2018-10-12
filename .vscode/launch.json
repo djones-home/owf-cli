@@ -8,9 +8,9 @@
             "type": "node",
             "request": "launch",
             "name": "test showit",
-            "program": "${workspaceFolder}/bin/owf-widget.js",
+            "program": "${workspaceFolder}/bin/owf.js",
             "args": [
-                "test", "showit" ]
+                "widgets", "lsit" ]
         },
     {
         "type": "node",

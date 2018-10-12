@@ -55,7 +55,7 @@ program.command('update <filter>')
     if(program.debug) console.error(options);
     if ( program.qsData ) {
        data = validate(program, getData(program, program.qsData))
-       if(program.debug) console.error(JSON.stringify(data,null,2));
+       if(program.debug) console.error('Debug: validate:', JSON.stringify(data,null,2));
 
     }
     if ( program.rbData) {
